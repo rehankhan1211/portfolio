@@ -300,7 +300,12 @@ const Projects = () => {
 
                 {/* Thumbnail Grid */}
                 {selectedProject.images.length > 1 && (
-                  <div className="grid grid-cols-5 gap-2">
+                  <div className={`grid gap-2 ${
+                    selectedProject.images.length <= 5 ? 'grid-cols-5' :
+                    selectedProject.images.length <= 8 ? 'grid-cols-4' :
+                    selectedProject.images.length <= 12 ? 'grid-cols-3' :
+                    'grid-cols-2'
+                  }`}>
                     {selectedProject.images.map((image, idx) => (
                       <motion.button
                         key={idx}
@@ -317,6 +322,9 @@ const Projects = () => {
                           alt={`Thumbnail ${idx + 1}`}
                           className="w-full h-full object-cover"
                         />
+                        <div className="absolute top-1 left-1 bg-black/60 text-white text-xs px-1.5 py-0.5 rounded">
+                          {idx + 1}
+                        </div>
                       </motion.button>
                     ))}
                   </div>
