@@ -48,7 +48,7 @@ const Contact = () => {
     };
 
     emailjs
-      .send('service_o5bsbwo', 'template_lpsme99', templateParams)
+      .send('service_lyiktvk', 'template_lpsme99', templateParams)
       .then(
         (response) => {
           console.log('Email sent successfully:', response);
