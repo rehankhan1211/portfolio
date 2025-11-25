@@ -12,37 +12,37 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: 'Tic Tac Toe Game',
+      title: 'MovieMate',
       description:
-        'An interactive Tic Tac Toe game built with Flutter featuring BLoC state management, smooth animations, and sound effects. Includes both single-player and multiplayer modes with an intuitive UI.',
-      technologies: ['Flutter', 'BLoC', 'Dart', 'Animation'],
-      features: ['Game Logic', 'State Management', 'Sound Effects', 'Confetti Animation'],
-      image: '🎮',
-      github: '#',
+        'MovieMate is a Flutter-based movie browsing and discovery application designed with a modern black-and-gold theme. It provides users with trending movies, detailed information, cast lists, and ratings, offering a smooth and visually engaging browsing experience.',
+      technologies: ['Flutter', 'Dart', 'BLoC', 'HTTP', 'JSON'],
+      features: ['Trending Movies', 'Movie Details & Cast', 'Fast API Loading', 'Black-Gold UI Theme', 'Smooth Navigation'],
+      images: ['/projects/mm1.jpg', '/projects/mm2.jpg', '/projects/mm3.jpg', '/projects/mm4.jpg', '/projects/mm5.jpg'],
+      github: 'https://github.com/rehankhan1211/moviemate',
       live: '#',
       color: 'from-cyan-500 to-blue-600',
     },
     {
       id: 2,
-      title: 'PopCorner',
+      title: 'Snaky',
       description:
-        'A movie discovery application showcasing modern Flutter development practices. Features real-time data fetching, beautiful UI components, and smooth user interactions.',
-      technologies: ['Flutter', 'REST API', 'Dart', 'UI/UX'],
-      features: ['Movie Database', 'Search Functionality', 'Responsive Design', 'Performance Optimized'],
-      image: '🍿',
-      github: '#',
+        'Snaky is a cross-platform Snake game built with Flutter and Dart, offering modern gameplay enhancements such as difficulty levels, multiple game modes, theme support, swipe controls, and persistent high-score tracking.',
+      technologies: ['Flutter', 'Dart', 'Provider', 'SharedPreferences', 'Material Design'],
+      features: ['Multiple Difficulty Levels', 'Swipe Controls', 'Light/Dark/System Themes', 'High Score Tracking', 'Cross-Platform Support'],
+      images: ['/projects/sg1.jpg', '/projects/sg2.jpg', '/projects/sg3.jpg', '/projects/sg4.jpg', '/projects/sg5.jpg'],
+      github: 'https://github.com/rehankhan1211/snake_game',
       live: '#',
       color: 'from-purple-500 to-pink-600',
     },
     {
       id: 3,
-      title: 'Portfolio Website',
+      title: 'TripNest',
       description:
-        'A modern, animated portfolio website built with React and Tailwind CSS. Showcases projects with smooth animations and responsive design across all devices.',
-      technologies: ['React', 'Tailwind CSS', 'Framer Motion', 'JavaScript'],
-      features: ['Responsive Design', 'Smooth Animations', 'SEO Optimized', 'Modern UI'],
-      image: '💼',
-      github: '#',
+        'TripNest is a modern Flutter-based hotel discovery app offering fast hotel search, Google authentication, multi-currency support, and detailed hotel information. Built with MVVM architecture for clean code and scalability.',
+      technologies: ['Flutter', 'Dart', 'Provider', 'Google Sign-In', 'HTTP'],
+      features: ['Google Authentication', 'Smart Hotel Search', 'Multi-Currency Support', 'Infinite Scroll', 'Detailed Hotel Info'],
+      images: ['/projects/tn1.jpg', '/projects/tn2.jpg', '/projects/tn3.jpg', '/projects/tn4.jpg', '/projects/tn5.jpg'],
+      github: 'https://github.com/rehankhan1211/tripnest_hotel_app',
       live: '#',
       color: 'from-green-500 to-emerald-600',
     },
@@ -112,8 +112,14 @@ const Projects = () => {
 
               {/* Content */}
               <div className="relative p-6 h-full flex flex-col">
-                {/* Icon */}
-                <div className="text-5xl mb-4">{project.image}</div>
+                {/* Image Carousel */}
+                <div className="mb-4 relative h-48 bg-slate-700/50 rounded-lg overflow-hidden">
+                  <img
+                    src={project.images[0]}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
 
                 {/* Title */}
                 <h3 className="text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">
