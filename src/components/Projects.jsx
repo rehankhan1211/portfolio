@@ -202,13 +202,16 @@ const Projects = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="text-center mt-16"
         >
-          <motion.button
+          <motion.a
+            href="https://github.com/rehankhan1211?tab=repositories"
+            target="_blank"
+            rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold hover:shadow-lg transition-all"
+            className="inline-block px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold hover:shadow-lg transition-all"
           >
             View All Projects
-          </motion.button>
+          </motion.a>
         </motion.div>
       </div>
     </section>

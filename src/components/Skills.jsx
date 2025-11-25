@@ -15,7 +15,7 @@ const Skills = () => {
         { name: 'Flutter', level: 90 },
         { name: 'Dart', level: 90 },
         { name: 'Mobile UI/UX', level: 85 },
-        { name: 'State Management', level: 85 },
+        { name: 'Custom Widgets', level: 85 },
       ],
       icon: '📱',
     },
@@ -23,51 +23,71 @@ const Skills = () => {
       category: 'State Management & Architecture',
       skills: [
         { name: 'BLoC Pattern', level: 85 },
-        { name: 'Provider', level: 80 },
-        { name: 'Clean Architecture', level: 85 },
-        { name: 'MVVM', level: 80 },
+        { name: 'Provider', level: 85 },
+        { name: 'Riverpod', level: 80 },
+        { name: 'GetX', level: 80 },
       ],
       icon: '🏗️',
     },
     {
+      category: 'Architectures',
+      skills: [
+        { name: 'Clean Architecture', level: 85 },
+        { name: 'MVVM', level: 85 },
+        { name: 'MVC', level: 80 },
+        { name: 'MVP', level: 80 },
+      ],
+      icon: '🏛️',
+    },
+    {
       category: 'Backend & APIs',
       skills: [
-        { name: 'REST APIs', level: 85 },
-        { name: 'Firebase', level: 80 },
-        { name: 'HTTP Requests', level: 85 },
-        { name: 'JSON Parsing', level: 90 },
+        { name: 'REST API Integration', level: 90 },
+        { name: 'Payment Gateway Integration', level: 85 },
+        { name: 'Google Maps Integration', level: 85 },
+        { name: 'JSON File Handling', level: 90 },
       ],
       icon: '🔌',
     },
     {
+      category: 'Database & Storage',
+      skills: [
+        { name: 'MySQL', level: 80 },
+        { name: 'Hive', level: 85 },
+        { name: 'SQLite', level: 85 },
+        { name: 'Local Storage', level: 90 },
+      ],
+      icon: '💾',
+    },
+    {
       category: 'Tools & Platforms',
       skills: [
-        { name: 'Git & GitHub', level: 85 },
         { name: 'Android Studio', level: 90 },
         { name: 'VS Code', level: 90 },
-        { name: 'Figma', level: 75 },
+        { name: 'Git & GitHub', level: 85 },
+        { name: 'Postman', level: 85 },
       ],
       icon: '🛠️',
     },
     {
-      category: 'Web Development',
+      category: 'Programming & Testing',
       skills: [
-        { name: 'React', level: 80 },
-        { name: 'JavaScript', level: 85 },
-        { name: 'Tailwind CSS', level: 85 },
-        { name: 'Responsive Design', level: 90 },
+        { name: 'Java (Core)', level: 80 },
+        { name: 'Unit Tests', level: 80 },
+        { name: 'Navigation & Routing', level: 85 },
+        { name: 'Third-party Packages', level: 90 },
       ],
-      icon: '🌐',
+      icon: '⚙️',
     },
     {
-      category: 'Core Competencies',
+      category: 'Deployment & Release',
       skills: [
-        { name: 'Problem Solving', level: 90 },
-        { name: 'Code Quality', level: 85 },
-        { name: 'Testing', level: 80 },
-        { name: 'Documentation', level: 85 },
+        { name: 'Play Store Release', level: 85 },
+        { name: 'App Store Release', level: 85 },
+        { name: 'Production Builds', level: 85 },
+        { name: 'Publishing Production Apps', level: 85 },
       ],
-      icon: '⚡',
+      icon: '🚀',
     },
   ];
 
@@ -172,29 +192,6 @@ const Skills = () => {
           ))}
         </motion.div>
 
-        {/* Additional Info */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6"
-        >
-          {[
-            { label: 'Projects Completed', value: '3+', icon: '📊' },
-            { label: 'Years Experience', value: '1', icon: '📅' },
-            { label: 'Code Quality', value: 'High', icon: '✨' },
-          ].map((stat, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ scale: 1.05 }}
-              className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 rounded-xl p-6 text-center hover:border-cyan-500/50 transition-all"
-            >
-              <div className="text-4xl mb-2">{stat.icon}</div>
-              <p className="text-slate-400 text-sm mb-2">{stat.label}</p>
-              <p className="text-2xl font-bold text-cyan-400">{stat.value}</p>
-            </motion.div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );
