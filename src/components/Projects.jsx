@@ -35,7 +35,7 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: 'MovieMate',
+      title: '🎬 MovieMate',
       description:
         'MovieMate is a Flutter-based movie browsing and discovery application designed with a modern black-and-gold theme. It provides users with trending movies, detailed information, cast lists, and ratings, offering a smooth and visually engaging browsing experience.',
       technologies: ['Flutter', 'Dart', 'BLoC', 'HTTP', 'JSON'],
@@ -47,7 +47,7 @@ const Projects = () => {
     },
     {
       id: 2,
-      title: 'Snaky',
+      title: '🐍 Snaky',
       description:
         'Snaky is a cross-platform Snake game built with Flutter and Dart, offering modern gameplay enhancements such as difficulty levels, multiple game modes, theme support, swipe controls, and persistent high-score tracking.',
       technologies: ['Flutter', 'Dart', 'Provider', 'SharedPreferences', 'Material Design'],
@@ -59,7 +59,7 @@ const Projects = () => {
     },
     {
       id: 3,
-      title: 'TripNest',
+      title: '🏨 TripNest',
       description:
         'TripNest is a modern Flutter-based hotel discovery app offering fast hotel search, Google authentication, multi-currency support, and detailed hotel information. Built with MVVM architecture for clean code and scalability.',
       technologies: ['Flutter', 'Dart', 'Provider', 'Google Sign-In', 'HTTP'],
