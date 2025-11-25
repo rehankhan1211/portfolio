@@ -109,12 +109,19 @@ const Hero = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
-              const link = document.createElement('a');
-              link.href = '/cv.pdf.pdf';
-              link.download = 'Rehan_Khan_CV.pdf';
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
+              fetch('/cv.pdf')
+                .then(response => response.blob())
+                .then(blob => {
+                  const url = window.URL.createObjectURL(new Blob([blob], { type: 'application/pdf' }));
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.download = 'Rehan_Khan_CV.pdf';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                  window.URL.revokeObjectURL(url);
+                })
+                .catch(error => console.error('Error downloading CV:', error));
             }}
             className="px-8 py-4 border-2 border-cyan-500 text-cyan-400 rounded-lg font-semibold hover:bg-cyan-500/10 transition-all cursor-pointer"
           >
