@@ -9,6 +9,10 @@ const Projects = () => {
     threshold: 0.1,
   });
 
+  const getImageUrl = (imagePath) => {
+    return `${process.env.PUBLIC_URL || ''}/${imagePath}`;
+  };
+
   const projects = [
     {
       id: 1,
@@ -17,7 +21,7 @@ const Projects = () => {
         'MovieMate is a Flutter-based movie browsing and discovery application designed with a modern black-and-gold theme. It provides users with trending movies, detailed information, cast lists, and ratings, offering a smooth and visually engaging browsing experience.',
       technologies: ['Flutter', 'Dart', 'BLoC', 'HTTP', 'JSON'],
       features: ['Trending Movies', 'Movie Details & Cast', 'Fast API Loading', 'Black-Gold UI Theme', 'Smooth Navigation'],
-      images: ['/mm1.jpg', '/mm2.jpg', '/mm3.jpg', '/mm4.jpg', '/mm5.jpg'],
+      images: ['mm1.jpg', 'mm2.jpg', 'mm3.jpg', 'mm4.jpg', 'mm5.jpg'],
       github: 'https://github.com/rehankhan1211/moviemate',
       live: '#',
       color: 'from-cyan-500 to-blue-600',
@@ -29,7 +33,7 @@ const Projects = () => {
         'Snaky is a cross-platform Snake game built with Flutter and Dart, offering modern gameplay enhancements such as difficulty levels, multiple game modes, theme support, swipe controls, and persistent high-score tracking.',
       technologies: ['Flutter', 'Dart', 'Provider', 'SharedPreferences', 'Material Design'],
       features: ['Multiple Difficulty Levels', 'Swipe Controls', 'Light/Dark/System Themes', 'High Score Tracking', 'Cross-Platform Support'],
-      images: ['/sg1.jpg', '/sg2.jpg', '/sg3.jpg', '/sg4.jpg', '/sg5.jpg'],
+      images: ['sg1.jpg', 'sg2.jpg', 'sg3.jpg', 'sg4.jpg', 'sg5.jpg'],
       github: 'https://github.com/rehankhan1211/snake_game',
       live: '#',
       color: 'from-purple-500 to-pink-600',
@@ -41,7 +45,7 @@ const Projects = () => {
         'TripNest is a modern Flutter-based hotel discovery app offering fast hotel search, Google authentication, multi-currency support, and detailed hotel information. Built with MVVM architecture for clean code and scalability.',
       technologies: ['Flutter', 'Dart', 'Provider', 'Google Sign-In', 'HTTP'],
       features: ['Google Authentication', 'Smart Hotel Search', 'Multi-Currency Support', 'Infinite Scroll', 'Detailed Hotel Info'],
-      images: ['/tn1.jpg', '/tn2.jpg', '/tn3.jpg', '/tn4.jpg', '/tn5.jpg'],
+      images: ['tn1.jpg', 'tn2.jpg', 'tn3.jpg', 'tn4.jpg', 'tn5.jpg'],
       github: 'https://github.com/rehankhan1211/tripnest_hotel_app',
       live: '#',
       color: 'from-green-500 to-emerald-600',
@@ -115,10 +119,11 @@ const Projects = () => {
                 {/* Image Carousel */}
                 <div className="mb-4 relative h-48 bg-slate-700/50 rounded-lg overflow-hidden flex items-center justify-center">
                   <img
-                    src={project.images[0]}
+                    src={getImageUrl(project.images[0])}
                     alt={project.title}
                     className="w-full h-full object-cover"
                     onError={(e) => {
+                      console.error('Image failed to load:', e.target.src);
                       e.target.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%23334155%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2220%22 fill=%22%2394a3b8%22 text-anchor=%22middle%22 dy=%22.3em%22%3EImage not found%3C/text%3E%3C/svg%3E';
                     }}
                   />
