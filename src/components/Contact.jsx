@@ -151,25 +151,32 @@ const Contact = () => {
             </motion.h3>
 
             {/* Contact Cards */}
-            {contactInfo.map((info, index) => (
-              <motion.a
-                key={index}
-                href={info.href}
-                variants={itemVariants}
-                whileHover={{ x: 10 }}
-                className="flex items-start gap-4 p-6 bg-slate-800/50 backdrop-blur-md border border-slate-700/50 rounded-xl hover:border-cyan-500/50 transition-all duration-300 group"
-              >
-                <div className="p-3 bg-cyan-500/20 rounded-lg group-hover:bg-cyan-500/30 transition-colors">
-                  <info.icon size={24} className="text-cyan-400" />
-                </div>
-                <div>
-                  <p className="text-slate-400 text-sm font-semibold">{info.label}</p>
-                  <p className="text-lg font-semibold text-white group-hover:text-cyan-400 transition-colors">
-                    {info.value}
-                  </p>
-                </div>
-              </motion.a>
-            ))}
+            {contactInfo.map((info, index) => {
+              const isLocation = info.label === 'Location';
+              const Component = isLocation ? motion.div : motion.a;
+              
+              return (
+                <Component
+                  key={index}
+                  href={isLocation ? undefined : info.href}
+                  variants={itemVariants}
+                  whileHover={{ x: isLocation ? 0 : 10 }}
+                  className={`flex items-start gap-4 p-6 bg-slate-800/50 backdrop-blur-md border border-slate-700/50 rounded-xl hover:border-cyan-500/50 transition-all duration-300 group ${
+                    isLocation ? 'cursor-default' : ''
+                  }`}
+                >
+                  <div className="p-3 bg-cyan-500/20 rounded-lg group-hover:bg-cyan-500/30 transition-colors">
+                    <info.icon size={24} className="text-cyan-400" />
+                  </div>
+                  <div>
+                    <p className="text-slate-400 text-sm font-semibold">{info.label}</p>
+                    <p className="text-lg font-semibold text-white group-hover:text-cyan-400 transition-colors">
+                      {info.value}
+                    </p>
+                  </div>
+                </Component>
+              );
+            })}
 
             {/* Social Links */}
             <motion.div variants={itemVariants} className="pt-8 border-t border-slate-700/50">

@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ExternalLink, Github } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ExternalLink, Github, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
 
 const Projects = () => {
@@ -9,8 +9,27 @@ const Projects = () => {
     threshold: 0.1,
   });
 
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   const getImageUrl = (imagePath) => {
     return `${process.env.PUBLIC_URL || ''}/${imagePath}`;
+  };
+
+  const handlePrevImage = () => {
+    if (selectedProject) {
+      setCurrentImageIndex((prev) =>
+        prev === 0 ? selectedProject.images.length - 1 : prev - 1
+      );
+    }
+  };
+
+  const handleNextImage = () => {
+    if (selectedProject) {
+      setCurrentImageIndex((prev) =>
+        prev === selectedProject.images.length - 1 ? 0 : prev + 1
+      );
+    }
   };
 
   const projects = [
@@ -116,19 +135,6 @@ const Projects = () => {
 
               {/* Content */}
               <div className="relative p-6 h-full flex flex-col">
-                {/* Image Carousel */}
-                <div className="mb-4 relative h-48 bg-slate-700/50 rounded-lg overflow-hidden flex items-center justify-center">
-                  <img
-                    src={getImageUrl(project.images[0])}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      console.error('Image failed to load:', e.target.src);
-                      e.target.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%23334155%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2220%22 fill=%22%2394a3b8%22 text-anchor=%22middle%22 dy=%22.3em%22%3EImage not found%3C/text%3E%3C/svg%3E';
-                    }}
-                  />
-                </div>
-
                 {/* Title */}
                 <h3 className="text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">
                   {project.title}
@@ -168,6 +174,17 @@ const Projects = () => {
 
                 {/* Links */}
                 <div className="flex gap-3 pt-4 border-t border-slate-700/50">
+                  <motion.button
+                    onClick={() => {
+                      setSelectedProject(project);
+                      setCurrentImageIndex(0);
+                    }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 rounded-lg text-sm font-semibold transition-colors border border-cyan-500/50"
+                  >
+                    📸 Screenshots
+                  </motion.button>
                   <motion.a
                     href={project.github}
                     whileHover={{ scale: 1.05 }}
@@ -205,6 +222,110 @@ const Projects = () => {
           </motion.a>
         </motion.div>
       </div>
+
+      {/* Screenshots Modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedProject(null)}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-slate-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col"
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-6 border-b border-slate-700/50">
+                <h3 className="text-2xl font-bold text-cyan-400">{selectedProject.title}</h3>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setSelectedProject(null)}
+                  className="p-2 hover:bg-slate-700 rounded-lg transition-colors"
+                >
+                  <X size={24} className="text-slate-400" />
+                </motion.button>
+              </div>
+
+              {/* Modal Body */}
+              <div className="flex-1 overflow-auto p-6">
+                {/* Image Display */}
+                <div className="mb-6 relative h-96 bg-slate-700/50 rounded-lg overflow-hidden flex items-center justify-center">
+                  <motion.img
+                    key={currentImageIndex}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    src={getImageUrl(selectedProject.images[currentImageIndex])}
+                    alt={`${selectedProject.title} screenshot ${currentImageIndex + 1}`}
+                    className="w-full h-full object-contain"
+                  />
+
+                  {/* Navigation Arrows */}
+                  {selectedProject.images.length > 1 && (
+                    <>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={handlePrevImage}
+                        className="absolute left-4 p-2 bg-cyan-500/20 hover:bg-cyan-500/40 rounded-lg transition-colors"
+                      >
+                        <ChevronLeft size={24} className="text-cyan-400" />
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={handleNextImage}
+                        className="absolute right-4 p-2 bg-cyan-500/20 hover:bg-cyan-500/40 rounded-lg transition-colors"
+                      >
+                        <ChevronRight size={24} className="text-cyan-400" />
+                      </motion.button>
+                    </>
+                  )}
+                </div>
+
+                {/* Image Counter */}
+                <div className="text-center mb-6">
+                  <p className="text-slate-400">
+                    Screenshot {currentImageIndex + 1} of {selectedProject.images.length}
+                  </p>
+                </div>
+
+                {/* Thumbnail Grid */}
+                {selectedProject.images.length > 1 && (
+                  <div className="grid grid-cols-5 gap-2">
+                    {selectedProject.images.map((image, idx) => (
+                      <motion.button
+                        key={idx}
+                        onClick={() => setCurrentImageIndex(idx)}
+                        whileHover={{ scale: 1.05 }}
+                        className={`relative h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                          idx === currentImageIndex
+                            ? 'border-cyan-400'
+                            : 'border-slate-600 hover:border-slate-500'
+                        }`}
+                      >
+                        <img
+                          src={getImageUrl(image)}
+                          alt={`Thumbnail ${idx + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </motion.button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
