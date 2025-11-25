@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const { ref, inView } = useInView({
@@ -17,6 +18,13 @@ const Contact = () => {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init('yb9EoZ1nACwkWxcvA');
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,15 +36,39 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Send email using mailto link with form data
-    const mailtoLink = `mailto:rehankhan121102@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`;
-    window.location.href = mailtoLink;
-    
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setIsSubmitted(false);
-    }, 3000);
+    setIsLoading(true);
+    setError('');
+
+    const templateParams = {
+      to_email: 'rehankhan121102@gmail.com',
+      from_name: formData.name,
+      from_email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+    };
+
+    emailjs
+      .send('service_o5bsbwo', 'template_lpsme99', templateParams)
+      .then(
+        (response) => {
+          console.log('Email sent successfully:', response);
+          setIsSubmitted(true);
+          setFormData({ name: '', email: '', subject: '', message: '' });
+          setTimeout(() => {
+            setIsSubmitted(false);
+          }, 3000);
+        },
+        (error) => {
+          console.error('Failed to send email:', error);
+          setError('Failed to send message. Please try again.');
+          setTimeout(() => {
+            setError('');
+          }, 3000);
+        }
+      )
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const contactInfo = [
@@ -256,15 +288,16 @@ const Contact = () => {
               {/* Submit Button */}
               <motion.button
                 type="submit"
+                disabled={isLoading}
                 initial={{ opacity: 0, y: 10 }}
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                 transition={{ duration: 0.4, delay: 0.7 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-lg transition-all"
+                whileHover={{ scale: isLoading ? 1 : 1.05 }}
+                whileTap={{ scale: isLoading ? 1 : 0.95 }}
+                className="w-full px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send size={20} />
-                {isSubmitted ? 'Message Sent! ✓' : 'Send Message'}
+                {isLoading ? 'Sending...' : isSubmitted ? 'Message Sent! ✓' : 'Send Message'}
               </motion.button>
 
               {/* Success Message */}
@@ -276,6 +309,18 @@ const Contact = () => {
                   className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-center"
                 >
                   Thank you! I'll get back to you soon.
+                </motion.div>
+              )}
+
+              {/* Error Message */}
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-center"
+                >
+                  {error}
                 </motion.div>
               )}
             </form>
