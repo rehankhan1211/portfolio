@@ -38,6 +38,9 @@ const Header = ({ isDarkMode, setIsDarkMode }) => {
             src="/profile.jpg"
             alt="Rehan Khan"
             className="w-10 h-10 rounded-lg object-cover border-2 border-cyan-500"
+            onError={(e) => {
+              e.target.style.display = 'none';
+            }}
           />
           <span className="text-xl font-bold gradient-text hidden sm:inline">
             Rehan Khan
