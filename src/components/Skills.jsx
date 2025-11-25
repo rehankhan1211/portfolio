@@ -11,82 +11,42 @@ const Skills = () => {
   const skillCategories = [
     {
       category: 'Mobile Development',
-      skills: [
-        { name: 'Flutter', level: 90 },
-        { name: 'Dart', level: 90 },
-        { name: 'Mobile UI/UX', level: 85 },
-        { name: 'Custom Widgets', level: 85 },
-      ],
+      skills: ['Flutter', 'Dart', 'Mobile UI/UX', 'Custom Widgets'],
       icon: '📱',
     },
     {
       category: 'State Management & Architecture',
-      skills: [
-        { name: 'BLoC Pattern', level: 85 },
-        { name: 'Provider', level: 85 },
-        { name: 'Riverpod', level: 80 },
-        { name: 'GetX', level: 80 },
-      ],
+      skills: ['BLoC Pattern', 'Provider', 'Riverpod', 'GetX'],
       icon: '🏗️',
     },
     {
       category: 'Architectures',
-      skills: [
-        { name: 'Clean Architecture', level: 85 },
-        { name: 'MVVM', level: 85 },
-        { name: 'MVC', level: 80 },
-        { name: 'MVP', level: 80 },
-      ],
+      skills: ['Clean Architecture', 'MVVM', 'MVC', 'MVP'],
       icon: '🏛️',
     },
     {
       category: 'Backend & APIs',
-      skills: [
-        { name: 'REST API Integration', level: 90 },
-        { name: 'Payment Gateway Integration', level: 85 },
-        { name: 'Google Maps Integration', level: 85 },
-        { name: 'JSON File Handling', level: 90 },
-      ],
+      skills: ['REST API Integration', 'Payment Gateway Integration', 'Google Maps Integration', 'JSON File Handling'],
       icon: '🔌',
     },
     {
       category: 'Database & Storage',
-      skills: [
-        { name: 'MySQL', level: 80 },
-        { name: 'Hive', level: 85 },
-        { name: 'SQLite', level: 85 },
-        { name: 'Local Storage', level: 90 },
-      ],
+      skills: ['MySQL', 'Hive', 'SQLite', 'Local Storage'],
       icon: '💾',
     },
     {
       category: 'Tools & Platforms',
-      skills: [
-        { name: 'Android Studio', level: 90 },
-        { name: 'VS Code', level: 90 },
-        { name: 'Git & GitHub', level: 85 },
-        { name: 'Postman', level: 85 },
-      ],
+      skills: ['Android Studio', 'VS Code', 'Git & GitHub', 'Postman'],
       icon: '🛠️',
     },
     {
       category: 'Programming & Testing',
-      skills: [
-        { name: 'Java (Core)', level: 80 },
-        { name: 'Unit Tests', level: 80 },
-        { name: 'Navigation & Routing', level: 85 },
-        { name: 'Third-party Packages', level: 90 },
-      ],
+      skills: ['Java (Core)', 'Unit Tests', 'Navigation & Routing', 'Third-party Packages'],
       icon: '⚙️',
     },
     {
       category: 'Deployment & Release',
-      skills: [
-        { name: 'Play Store Release', level: 85 },
-        { name: 'App Store Release', level: 85 },
-        { name: 'Production Builds', level: 85 },
-        { name: 'Publishing Production Apps', level: 85 },
-      ],
+      skills: ['Play Store Release', 'App Store Release', 'Production Builds', 'Publishing Production Apps'],
       icon: '🚀',
     },
   ];
@@ -111,21 +71,15 @@ const Skills = () => {
     },
   };
 
-  const SkillBar = ({ name, level }) => (
-    <div className="mb-4">
-      <div className="flex justify-between items-center mb-2">
-        <span className="text-sm font-semibold text-slate-300">{name}</span>
-        <span className="text-xs text-cyan-400 font-bold">{level}%</span>
-      </div>
-      <div className="w-full h-2 bg-slate-700 rounded-full overflow-hidden">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={inView ? { width: `${level}%` } : { width: 0 }}
-          transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
-          className="h-full bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full"
-        />
-      </div>
-    </div>
+  const SkillTag = ({ name }) => (
+    <motion.span
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+      transition={{ duration: 0.4 }}
+      className="inline-block px-3 py-1.5 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/50 rounded-full text-sm font-medium text-cyan-300 hover:border-cyan-400 hover:from-cyan-500/30 hover:to-purple-500/30 transition-all"
+    >
+      {name}
+    </motion.span>
   );
 
   return (
@@ -179,9 +133,9 @@ const Skills = () => {
                 </div>
 
                 {/* Skills */}
-                <div className="space-y-4">
+                <div className="flex flex-wrap gap-2">
                   {category.skills.map((skill) => (
-                    <SkillBar key={skill.name} name={skill.name} level={skill.level} />
+                    <SkillTag key={skill} name={skill} />
                   ))}
                 </div>
               </div>

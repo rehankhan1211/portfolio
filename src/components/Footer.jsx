@@ -16,9 +16,9 @@ const Footer = () => {
           {/* Logo */}
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-lg flex items-center justify-center font-bold text-sm">
-              FD
+              RK
             </div>
-            <span className="text-lg font-bold gradient-text">Flutter Dev</span>
+            <span className="text-lg font-bold gradient-text">Flutter Developer</span>
           </div>
 
           {/* Description */}
@@ -46,10 +46,10 @@ const Footer = () => {
           {/* Copyright */}
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
             <p>
-              © {currentYear} Flutter Developer. All rights reserved.
+              © {currentYear} Rehan Khan. All rights reserved.
             </p>
             <p>
-              Designed & Built with <span className="text-cyan-400">💙</span> using React & Tailwind CSS
+              Designed & Built with <span className="text-cyan-400">💙</span> by Rehan Khan
             </p>
           </div>
         </motion.div>

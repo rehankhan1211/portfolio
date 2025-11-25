@@ -11,32 +11,60 @@ const Experience = () => {
 
   const experiences = [
     {
-      period: '2024 - Present',
-      title: 'Flutter Developer',
-      company: 'Self-Employed / Freelance',
+      period: 'July 2025 - Current',
+      title: 'Flutter Developer Intern',
+      company: 'Resolute AI Workspace',
+      location: 'Bengaluru (Remote)',
       description:
-        'Developing and maintaining multiple Flutter applications with focus on clean architecture and user experience.',
-      achievements: [
-        'Built 3+ production-ready Flutter applications',
-        'Implemented BLoC state management pattern',
-        'Integrated REST APIs and Firebase services',
-        'Achieved 90%+ code quality standards',
+        'Developing Flutter applications with focus on local storage, authentication, and role-based access control.',
+      projects: [
+        {
+          name: 'GKEL Digital Lookbook',
+          description: 'A Gokuldas Leave Management tablet application developed for GMR Group Kamalanga exclusively for its operational incharge and Shift engineer.',
+          technologies: ['Flutter', 'Dart', 'BLoC'],
+          achievements: [
+            'Built and deployed local Storage platform for saving and offline use (Hive, SQLite, Shared Preferences)',
+            'Implemented employee authentication and role-based access',
+            'Implemented a flush mechanism to clear or sync local data with the server to maintain consistency',
+          ],
+        },
       ],
       icon: '🚀',
     },
     {
-      period: '2023 - 2024',
-      title: 'Mobile App Development',
-      company: 'Learning & Development',
+      period: 'Nov 2024 - April 2025',
+      title: 'Flutter Developer Intern',
+      company: 'Destek InfoSolutions Pvt. LTD',
+      location: 'Pune (Onsite)',
       description:
-        'Intensive learning phase focusing on Flutter fundamentals, Dart programming, and mobile development best practices.',
-      achievements: [
-        'Mastered Flutter framework and Dart language',
-        'Learned state management solutions (BLoC, Provider)',
-        'Built multiple projects from scratch',
-        'Studied clean code and architecture patterns',
+        'Developed and deployed multiple Flutter applications with focus on social features, payment integration, and location services.',
+      projects: [
+        {
+          name: 'TSHA Connect',
+          link: 'https://apps.apple.com/in/app/tsha-connect/id6738424073',
+          description: 'A mobile application developed for the Telangana State Hotel Association (TSHA) exclusively for its members and office bearers.',
+          technologies: ['Flutter', 'Dart', 'GetX'],
+          achievements: [
+            'Built and deployed social interaction features (posts, likes, comments, shares)',
+            'Integrated YouTube player for media content',
+            'Implemented membership registration and renewal',
+            'Integrated payment gateway using Easebuzz',
+          ],
+        },
+        {
+          name: 'LeadZilla',
+          link: 'https://apps.apple.com/in/app/leadzilla/id6744964153',
+          description: 'A Sales CRM mobile application for seamless lead tracking and management.',
+          technologies: ['Flutter', 'Dart', 'Provider', 'Google Maps API'],
+          achievements: [
+            'Collaborated with 5 sales representatives to gather feedback and iteratively refine the application',
+            'Incorporated 10+ user-requested features and improvements in lead management workflows',
+            'Enabled seamless lead tracking and performance analytics (monthly and yearly)',
+            'Integrated Google Maps for accurate restaurant location tracking',
+          ],
+        },
       ],
-      icon: '📚',
+      icon: '💼',
     },
   ];
 
@@ -121,29 +149,70 @@ const Experience = () => {
                     <span className="text-sm text-slate-400 font-semibold">{exp.period}</span>
                   </div>
                   <p className="text-slate-400 font-semibold">{exp.company}</p>
+                  {exp.location && <p className="text-slate-500 text-sm">{exp.location}</p>}
                 </div>
 
                 {/* Description */}
                 <p className="text-slate-400 mb-4">{exp.description}</p>
 
-                {/* Achievements */}
-                <div className="space-y-2">
-                  <p className="text-sm text-slate-500 font-semibold uppercase tracking-wider">
-                    Key Achievements
-                  </p>
-                  {exp.achievements.map((achievement, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-                      transition={{ duration: 0.4, delay: 0.2 + idx * 0.1 }}
-                      className="flex items-start gap-3"
-                    >
-                      <CheckCircle size={18} className="text-cyan-400 flex-shrink-0 mt-1" />
-                      <span className="text-slate-300 text-sm">{achievement}</span>
-                    </motion.div>
-                  ))}
-                </div>
+                {/* Projects */}
+                {exp.projects && exp.projects.length > 0 && (
+                  <div className="space-y-4">
+                    {exp.projects.map((project, projIdx) => (
+                      <div key={projIdx} className="bg-slate-700/30 rounded-lg p-4 border border-slate-600/50">
+                        {/* Project Name */}
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="font-semibold text-cyan-300">{project.name}</h4>
+                          {project.link && (
+                            <a
+                              href={project.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-cyan-400 hover:text-cyan-300 text-xs font-semibold"
+                            >
+                              View App →
+                            </a>
+                          )}
+                        </div>
+
+                        {/* Project Description */}
+                        <p className="text-slate-400 text-sm mb-3">{project.description}</p>
+
+                        {/* Technologies */}
+                        {project.technologies && (
+                          <div className="flex flex-wrap gap-2 mb-3">
+                            {project.technologies.map((tech, techIdx) => (
+                              <span
+                                key={techIdx}
+                                className="px-2 py-1 bg-slate-600/50 text-cyan-300 text-xs rounded border border-cyan-500/30"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+
+                        {/* Achievements */}
+                        {project.achievements && (
+                          <div className="space-y-1">
+                            {project.achievements.map((achievement, achIdx) => (
+                              <motion.div
+                                key={achIdx}
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                                transition={{ duration: 0.4, delay: 0.2 + achIdx * 0.05 }}
+                                className="flex items-start gap-2"
+                              >
+                                <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full flex-shrink-0 mt-1.5" />
+                                <span className="text-slate-300 text-xs">{achievement}</span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 {/* Hover Glow */}
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-cyan-500/0 to-purple-500/0 hover:from-cyan-500/10 hover:to-purple-500/10 pointer-events-none transition-all duration-300" />
@@ -152,36 +221,40 @@ const Experience = () => {
           ))}
         </motion.div>
 
-        {/* Learning Path */}
+        {/* Certifications */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-16 bg-gradient-to-r from-cyan-500/10 to-purple-600/10 border border-cyan-500/30 rounded-xl p-8"
         >
-          <h3 className="text-2xl font-bold mb-6 text-cyan-400">Continuous Learning</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <h3 className="text-2xl font-bold mb-6 text-cyan-400">Certifications</h3>
+          <div className="space-y-4">
             {[
               {
-                title: 'Current Focus',
-                items: ['Advanced Flutter Patterns', 'Performance Optimization', 'Web Development'],
+                title: 'Mobile App Development with Flutter and Dart (iOS and Android)',
+                issuer: 'Udemy',
+                icon: '📱',
               },
               {
-                title: 'Future Goals',
-                items: ['Full-Stack Development', 'Cloud Services', 'AI/ML Integration'],
+                title: 'Introduction to Core Java and CPP',
+                issuer: 'Orange I-Tech Pvt. Ltd.',
+                icon: '☕',
               },
-            ].map((section, idx) => (
-              <div key={idx}>
-                <h4 className="font-semibold text-slate-300 mb-3">{section.title}</h4>
-                <ul className="space-y-2">
-                  {section.items.map((item, i) => (
-                    <li key={i} className="flex items-center gap-2 text-slate-400">
-                      <span className="w-2 h-2 bg-cyan-500 rounded-full" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            ].map((cert, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, x: -10 }}
+                animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                transition={{ duration: 0.4, delay: 0.2 + idx * 0.1 }}
+                className="flex items-start gap-4 p-4 bg-slate-800/30 rounded-lg border border-slate-700/50 hover:border-cyan-500/50 transition-all"
+              >
+                <span className="text-2xl flex-shrink-0">{cert.icon}</span>
+                <div className="flex-grow">
+                  <h4 className="font-semibold text-slate-300 mb-1">{cert.title}</h4>
+                  <p className="text-sm text-cyan-400">{cert.issuer}</p>
+                </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>

@@ -28,8 +28,10 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically send the form data to a backend service
-    console.log('Form submitted:', formData);
+    // Send email using mailto link with form data
+    const mailtoLink = `mailto:rehankhan121102@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`;
+    window.location.href = mailtoLink;
+    
     setIsSubmitted(true);
     setTimeout(() => {
       setFormData({ name: '', email: '', subject: '', message: '' });
@@ -41,14 +43,14 @@ const Contact = () => {
     {
       icon: Mail,
       label: 'Email',
-      value: 'your.email@example.com',
-      href: 'mailto:your.email@example.com',
+      value: 'rehankhan121102@gmail.com',
+      href: 'mailto:rehankhan121102@gmail.com',
     },
     {
       icon: Phone,
       label: 'Phone',
-      value: '+91 XXXXX XXXXX',
-      href: 'tel:+91XXXXXXXXXX',
+      value: '+91 9689096165',
+      href: 'tel:+919689096165',
     },
     {
       icon: MapPin,
@@ -142,13 +144,14 @@ const Contact = () => {
               <p className="text-slate-400 text-sm font-semibold mb-4">Follow Me</p>
               <div className="flex gap-4">
                 {[
-                  { name: 'GitHub', emoji: '🐙' },
-                  { name: 'LinkedIn', emoji: '💼' },
-                  { name: 'Twitter', emoji: '𝕏' },
+                  { name: 'GitHub', emoji: '🐙', link: 'https://github.com/rehankhan1211' },
+                  { name: 'LinkedIn', emoji: '💼', link: 'http://www.linkedin.com/in/rehan-khan-45b54421b' },
                 ].map((social) => (
                   <motion.a
                     key={social.name}
-                    href="#"
+                    href={social.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.2, y: -5 }}
                     whileTap={{ scale: 0.95 }}
                     className="p-3 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-cyan-400 transition-colors glow-effect"

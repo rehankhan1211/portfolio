@@ -177,15 +177,6 @@ const Projects = () => {
                     <Github size={16} />
                     Code
                   </motion.a>
-                  <motion.a
-                    href={project.live}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 rounded-lg text-sm font-semibold transition-colors"
-                  >
-                    <ExternalLink size={16} />
-                    View
-                  </motion.a>
                 </div>
               </div>
 
