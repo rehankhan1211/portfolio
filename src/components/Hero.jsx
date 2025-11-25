@@ -71,9 +71,8 @@ const Hero = () => {
           variants={itemVariants}
           className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
         >
-          <span className="block mb-2">Hi, I'm a</span>
           <span className="gradient-text text-6xl sm:text-7xl lg:text-8xl">
-            Flutter Developer
+            I'm Rehan Khan, a Flutter Developer
           </span>
         </motion.h1>
 
@@ -94,7 +93,13 @@ const Hero = () => {
           <motion.button
             whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(6, 182, 212, 0.5)' }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-lg transition-all"
+            onClick={() => {
+              const projectsSection = document.querySelector('#projects');
+              if (projectsSection) {
+                projectsSection.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-lg transition-all cursor-pointer"
           >
             View My Work
             <ArrowRight size={20} />
@@ -103,7 +108,15 @@ const Hero = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 border-2 border-cyan-500 text-cyan-400 rounded-lg font-semibold hover:bg-cyan-500/10 transition-all"
+            onClick={() => {
+              const link = document.createElement('a');
+              link.href = '/cv.pdf.pdf';
+              link.download = 'Rehan_Khan_CV.pdf';
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }}
+            className="px-8 py-4 border-2 border-cyan-500 text-cyan-400 rounded-lg font-semibold hover:bg-cyan-500/10 transition-all cursor-pointer"
           >
             Download CV
           </motion.button>
@@ -115,16 +128,18 @@ const Hero = () => {
           className="flex justify-center gap-6 mb-12"
         >
           {[
-            { icon: Github, label: 'GitHub', href: '#' },
-            { icon: Linkedin, label: 'LinkedIn', href: '#' },
-            { icon: Mail, label: 'Email', href: '#' },
+            { icon: Github, label: 'GitHub', href: 'https://github.com/rehankhan1211', target: '_blank' },
+            { icon: Linkedin, label: 'LinkedIn', href: 'http://www.linkedin.com/in/rehan-khan-45b54421b', target: '_blank' },
+            { icon: Mail, label: 'Email', href: 'mailto:rehankhan121102@gmail.com', target: '_self' },
           ].map((social) => (
             <motion.a
               key={social.label}
               href={social.href}
+              target={social.target}
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.2, y: -5 }}
               whileTap={{ scale: 0.95 }}
-              className="p-3 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-cyan-400 transition-colors glow-effect"
+              className="p-3 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-cyan-400 transition-colors glow-effect cursor-pointer"
               title={social.label}
             >
               <social.icon size={24} />

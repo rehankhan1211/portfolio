@@ -35,15 +35,15 @@ const Header = ({ isDarkMode, setIsDarkMode }) => {
           className="flex items-center gap-2 cursor-pointer"
         >
           <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-lg flex items-center justify-center font-bold text-lg">
-            FD
+            RK
           </div>
           <span className="text-xl font-bold gradient-text hidden sm:inline">
-            Flutter Dev
+            Rehan Khan
           </span>
         </motion.div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-8 flex-1 justify-center">
           {navItems.map((item) => (
             <motion.button
               key={item.label}
@@ -62,7 +62,8 @@ const Header = ({ isDarkMode, setIsDarkMode }) => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsDarkMode(!isDarkMode)}
-            className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors"
+            className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer"
+            aria-label="Toggle dark mode"
           >
             {isDarkMode ? (
               <Sun size={20} className="text-yellow-400" />
