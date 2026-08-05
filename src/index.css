@@ -66,3 +66,18 @@ code {
 .glow-effect:hover {
   box-shadow: 0 0 50px rgba(14, 165, 233, 0.5);
 }
+
+/* Animated Gradient Background */
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 15s ease infinite;
+}

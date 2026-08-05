@@ -18,7 +18,7 @@ const Footer = () => {
             <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-lg flex items-center justify-center font-bold text-sm">
               RK
             </div>
-            <span className="text-lg font-bold gradient-text">Flutter Developer</span>
+            <span className="text-lg font-bold gradient-text">Mobile Application Developer</span>
           </div>
 
           {/* Description */}
@@ -28,7 +28,7 @@ const Footer = () => {
 
           {/* Links */}
           <div className="flex flex-wrap justify-center gap-6 mb-8 text-sm">
-            {['Home', 'Projects', 'Skills', 'Experience', 'Contact'].map((link) => (
+            {['Home', 'Projects', 'Skills', 'Experience', 'Education', 'Certifications', 'Learning', 'Contact'].map((link) => (
               <motion.a
                 key={link}
                 href={`#${link.toLowerCase()}`}

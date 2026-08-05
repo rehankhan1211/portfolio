@@ -1,8 +1,10 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Github, Linkedin, Mail, X, Download } from 'lucide-react';
 
 const Hero = () => {
+  const [showCvModal, setShowCvModal] = useState(false);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -37,7 +39,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 animate-gradient-x"
     >
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -69,10 +71,13 @@ const Hero = () => {
         {/* Main Heading */}
         <motion.h1
           variants={itemVariants}
-          className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+          className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-4 leading-tight flex flex-col items-center gap-4"
         >
-          <span className="gradient-text text-6xl sm:text-7xl lg:text-8xl">
-            I'm Rehan Khan, a Flutter Developer
+          <span className="gradient-text text-5xl sm:text-6xl lg:text-7xl">
+            I'm Rehan Khan, a Mobile Application Developer
+          </span>
+          <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 rounded-full text-cyan-400 text-lg sm:text-xl font-semibold backdrop-blur-sm">
+            Flutter Specialist
           </span>
         </motion.h1>
 
@@ -81,8 +86,7 @@ const Hero = () => {
           variants={itemVariants}
           className="text-xl sm:text-2xl text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed"
         >
-          Building beautiful, responsive mobile applications with 1 year of hands-on experience. 
-          Passionate about clean code, user experience, and innovative solutions.
+          Building production-ready mobile applications with offline-first architecture, clean code, and scalable solutions.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -99,27 +103,19 @@ const Hero = () => {
                 projectsSection.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-lg transition-all cursor-pointer"
+            className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-cyan-500/50"
           >
             View My Work
             <ArrowRight size={20} />
           </motion.button>
 
           <motion.button
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, backgroundColor: 'rgba(6, 182, 212, 0.1)' }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              const link = document.createElement('a');
-              link.href = '/cv.pdf';
-              link.download = 'Rehan_Khan_CV.pdf';
-              link.style.display = 'none';
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-            }}
-            className="px-8 py-4 border-2 border-cyan-500 text-cyan-400 rounded-lg font-semibold hover:bg-cyan-500/10 transition-all cursor-pointer"
+            onClick={() => setShowCvModal(true)}
+            className="px-8 py-4 border-2 border-cyan-500 text-cyan-400 rounded-lg font-semibold transition-all duration-300 cursor-pointer"
           >
-            Download CV
+            View CV
           </motion.button>
         </motion.div>
 
@@ -156,7 +152,7 @@ const Hero = () => {
         >
           <div className="inline-block p-4 bg-slate-800/50 backdrop-blur-md border border-slate-700/50 rounded-lg">
             <p className="text-sm text-slate-400">
-              💡 <span className="text-cyan-400 font-semibold">1 Year</span> of Flutter Development Experience
+              💡 <span className="text-cyan-400 font-semibold">1.5+ Years</span> of Flutter Development Experience
             </p>
           </div>
         </motion.div>
@@ -176,6 +172,58 @@ const Hero = () => {
           />
         </div>
       </motion.div>
+
+      {/* CV Modal */}
+      <AnimatePresence>
+        {showCvModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowCvModal(false)}
+            className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 md:p-8"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-slate-900 border border-slate-700/50 rounded-2xl w-full max-w-5xl h-[90vh] flex flex-col shadow-2xl overflow-hidden relative"
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-end p-4 md:p-6 border-b border-slate-700/50 bg-slate-800/50">
+                <div className="flex items-center gap-4">
+                  <a
+                    href="/cv.pdf"
+                    download="Rehan_Khan_CV.pdf"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-lg font-semibold transition-all shadow-lg hover:shadow-cyan-500/50 text-sm"
+                  >
+                    <Download size={18} />
+                    <span className="hidden sm:inline">Download CV</span>
+                  </a>
+                  <button
+                    onClick={() => setShowCvModal(false)}
+                    className="p-2 hover:bg-slate-700 rounded-xl transition-all"
+                  >
+                    <X size={24} className="text-slate-400" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Modal Body */}
+              <div className="flex-1 bg-slate-900/50 p-2 md:p-4 h-full">
+                <div className="w-full h-full rounded-xl overflow-hidden border border-slate-700/50 bg-slate-800 relative">
+                  <iframe
+                    src={`${process.env.PUBLIC_URL || ''}/cv.pdf#toolbar=0&navpanes=0&scrollbar=0`}
+                    className="w-full h-full border-none"
+                    title="CV PDF Viewer"
+                  />
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

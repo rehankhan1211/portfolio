@@ -12,20 +12,34 @@ const Experience = () => {
   const experiences = [
     {
       period: 'July 2025 - Current',
-      title: 'Flutter Developer Intern',
+      title: 'Associate Software Engineer',
       company: 'Resolute AI Workspace',
       location: 'Bengaluru (Remote)',
       description:
-        'Developing Flutter applications with focus on local storage, authentication, and role-based access control.',
+        'Working as a full-time Associate Software Engineer building production-ready enterprise mobile applications with offline-first architecture.',
       projects: [
         {
-          name: 'GKEL Digital Lookbook',
-          description: 'A Gokuldas Leave Management tablet application developed for GMR Group Kamalanga exclusively for its operational incharge and Shift engineer.',
-          technologies: ['Flutter', 'Dart', 'BLoC'],
+          name: 'GKEL Digital Logbook',
+          description: 'A GKEL tablet application developed for GMR Group Kamalanga, featuring secure login, role-based access control, offline-first architecture, and data synchronization.',
+          technologies: ['Flutter', 'Dart', 'BLoC', 'Hive', 'SQLite', 'SharedPreferences'],
           achievements: [
-            'Built and deployed local Storage platform for saving and offline use (Hive, SQLite, Shared Preferences)',
-            'Implemented employee authentication and role-based access',
-            'Implemented a flush mechanism to clear or sync local data with the server to maintain consistency',
+            'Secure Login & Role-Based Access',
+            'Offline Form Filling & Local Caching',
+            'Automatic Data Sync with Conflict Handling',
+            'Reduced APK size from 80MB to 35MB',
+            'Optimized performance eliminating UI lag',
+          ],
+        },
+        {
+          name: 'Olam Agri WMS Mobile Application',
+          description: 'A warehouse management mobile application built for Olam Agri, integrating real-time backend services and scanning capabilities.',
+          technologies: ['Flutter', 'Dart', 'FastAPI', 'flutter_secure_storage', 'Lottie'],
+          achievements: [
+            'Warehouse Management Workflows',
+            'QR Code & Barcode Scanning',
+            'Figma-Accurate UI with Lottie Animations',
+            'Secure Local Storage',
+            'Collaborated with backend team on FastAPI integration',
           ],
         },
       ],
@@ -37,7 +51,7 @@ const Experience = () => {
       company: 'Destek InfoSolutions Pvt. LTD',
       location: 'Pune (Onsite)',
       description:
-        'Developed and deployed multiple Flutter applications with focus on social features, payment integration, and location services.',
+        'Worked as the primary Flutter developer on select modules, coordinating with backend developers, QA engineers, and project managers. Developed and deployed multiple Flutter applications with focus on social features, payment integration, and location services.',
       projects: [
         {
           name: 'TSHA Connect',
@@ -49,6 +63,7 @@ const Experience = () => {
             'Integrated YouTube player for media content',
             'Implemented membership registration and renewal',
             'Integrated payment gateway using Easebuzz',
+            'Firebase Integration, Push Notifications, Crash Analytics',
           ],
         },
         {
@@ -61,10 +76,21 @@ const Experience = () => {
             'Incorporated 10+ user-requested features and improvements in lead management workflows',
             'Enabled seamless lead tracking and performance analytics (monthly and yearly)',
             'Integrated Google Maps for accurate restaurant location tracking',
+            'Firebase Integration, Push Notifications',
           ],
         },
       ],
       icon: '💼',
+    },
+    {
+      period: 'Feb 2023 - April 2023',
+      title: 'Java Developer Intern',
+      company: 'InternPe',
+      location: 'Remote',
+      description:
+        'Gained hands-on experience developing and maintaining scalable Java applications, contributing to RESTful APIs, debugging, code reviews, and SQL-based database design within an Agile team environment.',
+      projects: [],
+      icon: '☕',
     },
   ];
 
@@ -126,7 +152,12 @@ const Experience = () => {
             >
               {/* Timeline Line */}
               {index < experiences.length - 1 && (
-                <div className="absolute left-8 top-24 w-1 h-20 bg-gradient-to-b from-cyan-500 to-purple-600 opacity-30" />
+                <motion.div
+                  initial={{ height: 0 }}
+                  animate={inView ? { height: 'calc(100% + 2rem)' } : { height: 0 }}
+                  transition={{ duration: 1, delay: 0.2 + index * 0.4 }}
+                  className="absolute left-8 top-16 w-1 bg-gradient-to-b from-cyan-500 to-purple-600 opacity-30 origin-top"
+                />
               )}
 
               {/* Timeline Dot */}
@@ -139,8 +170,8 @@ const Experience = () => {
 
               {/* Content */}
               <motion.div
-                whileHover={{ x: 10 }}
-                className="ml-32 bg-slate-800/50 backdrop-blur-md border border-slate-700/50 rounded-xl p-6 hover:border-cyan-500/50 transition-all duration-300"
+                whileHover={{ scale: 1.02, x: 10 }}
+                className="ml-24 sm:ml-32 bg-slate-800/50 backdrop-blur-md border border-slate-700/50 rounded-xl p-6 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(14,165,233,0.15)] transition-all duration-300"
               >
                 {/* Header */}
                 <div className="mb-4">
@@ -221,8 +252,55 @@ const Experience = () => {
           ))}
         </motion.div>
 
+        {/* Education */}
+        <motion.div
+          id="education"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-16 bg-gradient-to-r from-cyan-500/10 to-blue-600/10 border border-cyan-500/30 rounded-xl p-8"
+        >
+          <h3 className="text-2xl font-bold mb-6 text-cyan-400">Education</h3>
+          <div className="space-y-4">
+            {[
+              {
+                degree: 'Bachelor of Engineering — Computer Engineering',
+                institution: 'Sinhgad Academy of Engineering, Pune',
+                period: 'Jul 2020 – May 2024',
+                icon: '🎓'
+              },
+              {
+                degree: 'Class XII',
+                institution: 'Dinanth Junior College, Nagpur',
+                period: 'Jun 2019 – Mar 2020',
+                icon: '🏫'
+              }
+            ].map((edu, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, x: -10 }}
+                animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                transition={{ duration: 0.4, delay: 0.2 + idx * 0.1 }}
+                className="flex flex-col md:flex-row md:justify-between md:items-center p-4 bg-slate-800/30 rounded-lg border border-slate-700/50 hover:border-cyan-500/50 transition-all gap-4"
+              >
+                <div className="flex items-start gap-4">
+                  <span className="text-2xl flex-shrink-0">{edu.icon}</span>
+                  <div>
+                    <h4 className="font-semibold text-slate-300 mb-1">{edu.degree}</h4>
+                    <p className="text-sm text-cyan-400">{edu.institution}</p>
+                  </div>
+                </div>
+                <div className="text-slate-400 font-semibold md:text-right whitespace-nowrap text-sm">
+                  {edu.period}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
         {/* Certifications */}
         <motion.div
+          id="certifications"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.6 }}

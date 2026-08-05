@@ -15,19 +15,24 @@ const Skills = () => {
       icon: '📱',
     },
     {
-      category: 'State Management & Architecture',
-      skills: ['BLoC Pattern', 'Provider', 'Riverpod', 'GetX'],
+      category: 'State Management Tools',
+      skills: ['BLoC Pattern (Primary)', 'Redux', 'Provider', 'Riverpod', 'GetX'],
       icon: '🏗️',
     },
     {
       category: 'Architectures',
-      skills: ['Clean Architecture', 'MVVM', 'MVC', 'MVP'],
+      skills: ['Clean Architecture', 'MVVM', 'MVC'],
       icon: '🏛️',
     },
     {
       category: 'Backend & APIs',
-      skills: ['REST API Integration', 'Payment Gateway Integration', 'Google Maps Integration', 'JSON File Handling'],
+      skills: ['FastAPI', 'Node.js (In Progress — Beginner to Advance course, Udemy)', 'Express.js (In Progress)', 'REST API Integration', 'Payment Gateway Integration', 'Google Maps Integration', 'JSON File Handling'],
       icon: '🔌',
+    },
+    {
+      category: 'Programming & Testing',
+      skills: ['Java (Core)', 'Unit Tests', 'Navigation & Routing', 'Third-party Packages'],
+      icon: '⚙️',
     },
     {
       category: 'Database & Storage',
@@ -36,18 +41,23 @@ const Skills = () => {
     },
     {
       category: 'Tools & Platforms',
-      skills: ['Android Studio', 'VS Code', 'Git & GitHub', 'Postman'],
+      skills: ['Xcode', 'Firebase', 'Android Studio', 'VS Code', 'Git & GitHub', 'Postman'],
       icon: '🛠️',
-    },
-    {
-      category: 'Programming & Testing',
-      skills: ['Java (Core)', 'Unit Tests', 'Navigation & Routing', 'Third-party Packages'],
-      icon: '⚙️',
     },
     {
       category: 'Deployment & Release',
       skills: ['Play Store Release', 'App Store Release', 'Production Builds', 'Publishing Production Apps'],
       icon: '🚀',
+    },
+    {
+      category: 'Core CS & Fundamentals',
+      skills: ['Data Structures & Algorithms', 'Object-Oriented Programming', 'System Design Fundamentals'],
+      icon: '🧠',
+    },
+    {
+      category: 'Security & Auth',
+      skills: ['Token Handling', 'Session Persistence', 'flutter_secure_storage', 'Role-Based Access Control'],
+      icon: '🔒',
     },
   ];
 
@@ -71,12 +81,16 @@ const Skills = () => {
     },
   };
 
+  const tagVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
+  };
+
   const SkillTag = ({ name }) => (
     <motion.span
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-      transition={{ duration: 0.4 }}
-      className="inline-block px-3 py-1.5 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/50 rounded-full text-sm font-medium text-cyan-300 hover:border-cyan-400 hover:from-cyan-500/30 hover:to-purple-500/30 transition-all"
+      variants={tagVariants}
+      whileHover={{ scale: 1.05 }}
+      className="inline-block px-3 py-1.5 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/50 rounded-full text-sm font-medium text-cyan-300 hover:border-cyan-400 hover:from-cyan-500/30 hover:to-purple-500/30 transition-all cursor-default"
     >
       {name}
     </motion.span>
@@ -133,11 +147,17 @@ const Skills = () => {
                 </div>
 
                 {/* Skills */}
-                <div className="flex flex-wrap gap-2">
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
+                  }}
+                  className="flex flex-wrap gap-2"
+                >
                   {category.skills.map((skill) => (
                     <SkillTag key={skill} name={skill} />
                   ))}
-                </div>
+                </motion.div>
               </div>
 
               {/* Hover Glow */}

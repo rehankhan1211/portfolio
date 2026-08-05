@@ -12,8 +12,16 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  const [pdfModalData, setPdfModalData] = useState(null);
+  const [activePdfTab, setActivePdfTab] = useState('');
+  const [activePdfFile, setActivePdfFile] = useState('');
+
   const getImageUrl = (imagePath) => {
     return `${process.env.PUBLIC_URL || ''}/${imagePath}`;
+  };
+
+  const getPdfUrl = (filename) => {
+    return `${process.env.PUBLIC_URL || ''}/${encodeURIComponent(filename)}#toolbar=0&navpanes=0&scrollbar=0`;
   };
 
   const handlePrevImage = () => {
@@ -69,6 +77,43 @@ const Projects = () => {
       live: '#',
       color: 'from-green-500 to-emerald-600',
     },
+    {
+      id: 4,
+      title: '📋 Taskopia – Real-Time Event Tracking and Control',
+      description:
+        'Taskopia is a real-time event tracking and task management application built as a final year engineering project. It features an offline-first, modular clean architecture with real-time synchronization, enabling users to organize, monitor, and manage daily events reliably even under concurrent updates.',
+      technologies: ['Flutter', 'Dart', 'SQLite', 'Riverpod', 'REST APIs', 'JSON'],
+      features: ['Real-Time Event Tracking & Task Management (CRUD)', 'Offline-First Architecture with Reliable Sync Under Concurrent Updates', 'Time-Zone Based Task Scheduling & Reminders', 'Completed Task History for Progress Tracking', 'Modular, Scalable Clean Architecture'],
+      images: [],
+      pdfScreenshots: "App SC's.pdf",
+      publications: {
+        survey: {
+          title: 'Survey Paper',
+          files: [
+            'IJCRT Certificate Survey Paper.pdf',
+            'IJCRT Confirmation Letter Survey Paper.pdf',
+            'Survey Paper IJCRT.pdf'
+          ]
+        },
+        implementation: {
+          title: 'Implementation Paper',
+          files: [
+            'IJCRT Certificates Implementation Paper.pdf',
+            'IJCRT Conformation Letter Implementation Paper.pdf',
+            'IJCRT Implementation Paper.pdf'
+          ]
+        },
+        copyright: {
+          title: 'Project Copyright',
+          files: ['CopyRight Certificate Taskopia.pdf']
+        }
+      },
+      github: 'https://github.com/rehankhan1211/Taskopia-To-Do-List-',
+      live: '#',
+      color: 'from-orange-500 to-red-600',
+      note: 'Final Year Engineering Project — Sinhgad Academy of Engineering, Pune (May 2023 – March 2024)',
+      badge: '📄 Published as a peer-reviewed research paper (Impact Factor: 7.97, April 2024)'
+    }
   ];
 
   const containerVariants = {
@@ -125,8 +170,8 @@ const Projects = () => {
             <motion.div
               key={project.id}
               variants={itemVariants}
-              whileHover={{ y: -10, transition: { duration: 0.3 } }}
-              className="group relative bg-slate-800/50 backdrop-blur-md border border-slate-700/50 rounded-xl overflow-hidden hover:border-cyan-500/50 transition-all duration-300"
+              whileHover={{ y: -10, scale: 1.02, transition: { duration: 0.3 } }}
+              className="group relative bg-slate-800/50 backdrop-blur-md border border-slate-700/50 rounded-xl overflow-hidden hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(14,165,233,0.15)] transition-all duration-300"
             >
               {/* Gradient Background */}
               <div
@@ -140,10 +185,24 @@ const Projects = () => {
                   {project.title}
                 </h3>
 
+                {/* Badge */}
+                {project.badge && (
+                  <div className="mb-3">
+                    <span className="inline-block px-3 py-1 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/50 rounded-md text-yellow-300 text-xs font-semibold shadow-[0_0_10px_rgba(234,179,8,0.15)]">
+                      {project.badge}
+                    </span>
+                  </div>
+                )}
+
                 {/* Description */}
                 <p className="text-slate-400 text-sm mb-4 flex-grow">
                   {project.description}
                 </p>
+                {project.note && (
+                  <p className="text-slate-500 text-xs italic mb-4">
+                    {project.note}
+                  </p>
+                )}
 
                 {/* Technologies */}
                 <div className="mb-4">
@@ -173,23 +232,51 @@ const Projects = () => {
                 </div>
 
                 {/* Links */}
-                <div className="flex gap-3 pt-4 border-t border-slate-700/50">
-                  <motion.button
-                    onClick={() => {
-                      setSelectedProject(project);
-                      setCurrentImageIndex(0);
-                    }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 rounded-lg text-sm font-semibold transition-colors border border-cyan-500/50"
-                  >
-                    📸 Screenshots
-                  </motion.button>
+                <div className="flex flex-wrap gap-3 pt-4 border-t border-slate-700/50">
+                  {(project.images?.length > 0 || project.pdfScreenshots) && (
+                    <motion.button
+                      onClick={() => {
+                        if (project.pdfScreenshots) {
+                          setPdfModalData({
+                            title: 'App Screenshots',
+                            projectTitle: project.title,
+                            pdf: project.pdfScreenshots
+                          });
+                        } else {
+                          setSelectedProject(project);
+                          setCurrentImageIndex(0);
+                        }
+                      }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 rounded-lg text-sm font-semibold transition-colors border border-cyan-500/50 min-w-[140px]"
+                    >
+                      📸 Screenshots
+                    </motion.button>
+                  )}
+                  {project.publications && (
+                    <motion.button
+                      onClick={() => {
+                        setPdfModalData({
+                          title: 'Publications',
+                          projectTitle: project.title,
+                          tabs: [project.publications.survey, project.publications.implementation, project.publications.copyright]
+                        });
+                        setActivePdfTab('Survey Paper');
+                        setActivePdfFile(project.publications.survey.files[0]);
+                      }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-purple-500/20 hover:bg-purple-500/30 text-purple-400 rounded-lg text-sm font-semibold transition-colors border border-purple-500/50 min-w-[140px]"
+                    >
+                      📚 Publications
+                    </motion.button>
+                  )}
                   <motion.a
                     href={project.github}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-slate-700/50 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-slate-700/50 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors min-w-[120px]"
                   >
                     <Github size={16} />
                     Code
@@ -329,6 +416,108 @@ const Projects = () => {
                     ))}
                   </div>
                 )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* PDF Modal */}
+      <AnimatePresence>
+        {pdfModalData && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setPdfModalData(null)}
+            className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 md:p-8"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className={`bg-slate-900 border border-slate-700/50 rounded-2xl w-full ${
+                pdfModalData.title === 'App Screenshots' ? 'max-w-md mx-auto' : 'max-w-6xl mx-auto'
+              } h-[85vh] flex flex-col shadow-2xl overflow-hidden`}
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-4 md:p-6 border-b border-slate-700/50 bg-slate-800/50">
+                <div>
+                  <h3 className="text-xl md:text-2xl font-bold text-cyan-400">{pdfModalData.title}</h3>
+                  <p className="text-slate-400 text-sm mt-1">{pdfModalData.projectTitle}</p>
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.1, rotate: 90 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setPdfModalData(null)}
+                  className="p-2 hover:bg-slate-700 rounded-xl transition-all"
+                >
+                  <X size={24} className="text-slate-400" />
+                </motion.button>
+              </div>
+
+              {/* Modal Body */}
+              <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
+                {/* Sidebar / Topbar for Publications */}
+                {pdfModalData.tabs && (
+                  <div className="w-full md:w-64 bg-slate-800/30 border-b md:border-b-0 md:border-r border-slate-700/50 flex flex-col p-4 overflow-y-auto shrink-0">
+                    {pdfModalData.tabs.map((tab, idx) => (
+                      <div key={idx} className="mb-6">
+                        <button
+                          onClick={() => {
+                            setActivePdfTab(tab.title);
+                            setActivePdfFile(tab.files[0]);
+                          }}
+                          className={`w-full text-left font-bold px-4 py-2 rounded-lg transition-colors mb-2 ${
+                            activePdfTab === tab.title 
+                              ? 'bg-cyan-500/20 text-cyan-400' 
+                              : 'text-slate-400 hover:bg-slate-700/50 hover:text-slate-200'
+                          }`}
+                        >
+                          {tab.title}
+                        </button>
+                        
+                        {/* Sub-files if active tab */}
+                        <AnimatePresence>
+                          {activePdfTab === tab.title && tab.files.length > 1 && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="pl-4 space-y-1 overflow-hidden"
+                            >
+                              {tab.files.map((file, fIdx) => (
+                                <button
+                                  key={fIdx}
+                                  onClick={() => setActivePdfFile(file)}
+                                  className={`w-full text-left text-xs px-3 py-2 rounded-md transition-all ${
+                                    activePdfFile === file
+                                      ? 'bg-purple-500/20 text-purple-300 font-semibold'
+                                      : 'text-slate-400 hover:bg-slate-700/50 hover:text-slate-300'
+                                  }`}
+                                >
+                                  {file.replace('.pdf', '')}
+                                </button>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* PDF Viewer */}
+                <div className="flex-1 bg-slate-900/50 p-2 md:p-4">
+                  <div className="w-full h-full rounded-xl overflow-hidden border border-slate-700/50 bg-slate-800 relative">
+                    <iframe
+                      src={getPdfUrl(pdfModalData.pdf || activePdfFile)}
+                      className="w-full h-full border-none"
+                      title="PDF Viewer"
+                    />
+                  </div>
+                </div>
               </div>
             </motion.div>
           </motion.div>

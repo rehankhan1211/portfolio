@@ -10,6 +10,9 @@ const Header = ({ isDarkMode, setIsDarkMode }) => {
     { label: 'Projects', href: '#projects' },
     { label: 'Skills', href: '#skills' },
     { label: 'Experience', href: '#experience' },
+    { label: 'Education', href: '#education' },
+    { label: 'Certifications', href: '#certifications' },
+    { label: 'Learning', href: '#learning' },
     { label: 'Contact', href: '#contact' },
   ];
 
@@ -48,7 +51,7 @@ const Header = ({ isDarkMode, setIsDarkMode }) => {
         </motion.div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8 flex-1 justify-center">
+        <div className="hidden lg:flex items-center gap-4 xl:gap-6 flex-1 justify-center flex-wrap">
           {navItems.map((item) => (
             <motion.button
               key={item.label}
