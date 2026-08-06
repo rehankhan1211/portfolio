@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
@@ -21,10 +21,7 @@ const Contact = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // Initialize EmailJS
-  useEffect(() => {
-    emailjs.init('yb9EoZ1nACwkWxcvA');
-  }, []);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,7 +45,7 @@ const Contact = () => {
     };
 
     emailjs
-      .send('service_lyiktvk', 'template_lpsme99', templateParams)
+      .send('service_lyiktvk', 'template_lpsme99', templateParams, 'yb9EoZ1nACwkWxcvA')
       .then(
         (response) => {
           console.log('Email sent successfully:', response);
