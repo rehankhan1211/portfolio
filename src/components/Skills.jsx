@@ -21,7 +21,7 @@ const Skills = () => {
     },
     {
       category: 'Architectures',
-      skills: ['Clean Architecture', 'MVVM', 'MVC'],
+      skills: ['Clean Architecture', 'MVVM', 'MVC', 'MVP'],
       icon: '🏛️',
     },
     {
@@ -36,7 +36,7 @@ const Skills = () => {
     },
     {
       category: 'Database & Storage',
-      skills: ['MySQL', 'Hive', 'SQLite', 'Local Storage'],
+      skills: ['MySQL', 'Hive', 'SQLite', 'Shared Preferences', 'Local Storage'],
       icon: '💾',
     },
     {
@@ -46,7 +46,7 @@ const Skills = () => {
     },
     {
       category: 'Deployment & Release',
-      skills: ['Play Store Release', 'App Store Release', 'Production Builds', 'Publishing Production Apps'],
+      skills: ['Google Play Store Release', 'Apple App Store Connect', 'Production Builds', 'Publishing Production Apps'],
       icon: '🚀',
     },
     {
